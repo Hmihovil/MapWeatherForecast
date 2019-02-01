@@ -1,4 +1,4 @@
-package com.kborodin.mapweatherforecast.view
+package com.kborodin.mapweatherforecast.view.activity
 
 import android.Manifest
 import android.content.Context
@@ -20,7 +20,10 @@ class SplashActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         openMapClickWithPermissionCheck()
     }
-    @NeedsPermission(FINE_LOCATION, COARSE_LOCATION)
+    @NeedsPermission(
+        FINE_LOCATION,
+        COARSE_LOCATION
+    )
     fun openMapClick() {
         val isFineLocationGranted =
             ContextCompat.checkSelfPermission(this, FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
@@ -35,7 +38,10 @@ class SplashActivity: AppCompatActivity() {
         }
     }
 
-    @OnShowRationale(FINE_LOCATION, COARSE_LOCATION)
+    @OnShowRationale(
+        FINE_LOCATION,
+        COARSE_LOCATION
+    )
     fun showRationaleForMap(request: PermissionRequest) {
         AlertDialog.Builder(this)
             .setPositiveButton(com.kborodin.mapweatherforecast.R.string.ok) { _, _ -> request.proceed() }
@@ -45,7 +51,10 @@ class SplashActivity: AppCompatActivity() {
             .show()
     }
 
-    @OnPermissionDenied(FINE_LOCATION, COARSE_LOCATION)
+    @OnPermissionDenied(
+        FINE_LOCATION,
+        COARSE_LOCATION
+    )
     fun onLocationDenied() {
         toast(getString(com.kborodin.mapweatherforecast.R.string.locationDenied))
     }
