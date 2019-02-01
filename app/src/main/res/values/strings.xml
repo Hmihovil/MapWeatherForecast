@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">MapWeatherForecast</string>
 
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="permissionLocationRationale">Location permission is needed for showing the map and your location</string>
+    <string name="locationDenied">Location permissions was denied. Please consider granting it in order to view the map!</string>
+
 </resources>

@@ -5,7 +5,6 @@ import com.kborodin.mapweatherforecast.dagger.module.NetworkModule
 import com.kborodin.mapweatherforecast.dagger.module.RepositoryModule
 import com.kborodin.mapweatherforecast.dagger.module.ServiceModule
 import com.kborodin.mapweatherforecast.view.MainActivity
-import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 
@@ -14,9 +13,4 @@ import javax.inject.Singleton
 interface MainComponent {
 
     fun inject(mainActivity: MainActivity)
-
-    @Component.Builder
-    interface Builder {
-        @BindsInstance fun appModule(appModule: ApplicationModule): Builder
-    }
 }
