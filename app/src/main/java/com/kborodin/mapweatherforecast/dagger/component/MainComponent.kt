@@ -13,4 +13,5 @@ import javax.inject.Singleton
 interface MainComponent {
 
     fun inject(weatherActivity: WeatherActivity)
+
 }
