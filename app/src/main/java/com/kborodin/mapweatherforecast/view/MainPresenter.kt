@@ -1,5 +1,6 @@
 package com.kborodin.mapweatherforecast.view
 
+import android.util.Log
 import com.kborodin.mapweatherforecast.data.model.CombinedData
 import com.kborodin.mapweatherforecast.data.model.ForecastData
 import com.kborodin.mapweatherforecast.data.model.WeatherData
@@ -53,6 +54,7 @@ class MainPresenter(view: View, private val weatherRepository: WeatherRepository
 
                 override fun onError(e: Throwable) {
                     view.onDataByLocationFailed()
+                    Log.d("Presenter", "Error in presenter: ${e.localizedMessage}")
                 }
             })
         addDisposable(combined)

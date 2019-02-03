@@ -10,10 +10,12 @@ import com.kborodin.mapweatherforecast.data.model.CombinedData
 import com.kborodin.mapweatherforecast.data.scheduler.SchedulerProvider
 import com.kborodin.mapweatherforecast.repository.WeatherRepository
 import com.kborodin.mapweatherforecast.view.MainPresenter
+import com.kborodin.mapweatherforecast.view.adapter.ViewPagerAdapter
 import com.kborodin.mapweatherforecast.view.fragment.ForecastFragment
 import com.kborodin.mapweatherforecast.view.fragment.WeatherFragment
 import com.kborodin.mapweatherforecast.view.interfaces.Provider
 import com.kborodin.mapweatherforecast.view.interfaces.View
+import kotlinx.android.synthetic.main.activity_weather.*
 import kotlinx.android.synthetic.main.progress_bar.*
 import javax.inject.Inject
 
@@ -25,6 +27,7 @@ class WeatherActivity : AppCompatActivity(), View {
     lateinit var weatherRepository: WeatherRepository
 
     private lateinit var mainPresenter: Provider
+    private lateinit var viewPagerAdapter: ViewPagerAdapter
     private var tempUnit: String = "metric"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,8 +36,12 @@ class WeatherActivity : AppCompatActivity(), View {
         val myApp = application as MyApp
         myApp.getMainComponent().inject(this)
 
-        initPresenter()
+        tabs.setupWithViewPager(viewpager)
+        viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
+        viewpager.adapter = viewPagerAdapter
+        viewpager.visibility = android.view.View.GONE
 
+        initPresenter()
         getDataFromLocation()
     }
 
@@ -48,19 +55,28 @@ class WeatherActivity : AppCompatActivity(), View {
     }
 
     override fun onDataByCityRetrieved(data: CombinedData) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onDataByCityFailed() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onDataByLocationRetrieved(data: CombinedData) {
-        Log.d("WeatherActivity", "data retrieved: ${data.weatherData.name}")
+        updateFragments(data)
+        viewpager.visibility = android.view.View.VISIBLE
+        hideProgressBar()
     }
 
     override fun onDataByLocationFailed() {
-        Log.d("WeatherActivity", "Data by location failed")
+        hideProgressBar()
+    }
+
+    private fun updateFragments(combinedData: CombinedData) {
+        (viewPagerAdapter.getRegisteredFragment(0) as WeatherFragment).updateData(
+            combinedData.weatherData
+        )
+//        (viewPagerAdapter.getRegisteredFragment(1) as ForecastFragment).updateData(
+//            combinedData.getForecastData()
+//        )
     }
 
 
@@ -75,4 +91,5 @@ class WeatherActivity : AppCompatActivity(), View {
             progressBar.visibility = android.view.View.GONE
         }
     }
+
 }

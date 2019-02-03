@@ -14,7 +14,7 @@ data class List(
     val weather: ArrayList<Weather>,
     val speed: Double,
     val deg: Int,
-    val clouds: Int,
+    val clouds: Clouds,
     val rain: Double
 )
 
