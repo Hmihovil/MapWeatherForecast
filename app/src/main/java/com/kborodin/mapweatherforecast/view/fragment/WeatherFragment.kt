@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kborodin.mapweatherforecast.R
-import com.kborodin.mapweatherforecast.data.model.WeatherData
+import com.kborodin.mapweatherforecast.view.activity.WeatherActivity
 import com.kborodin.mapweatherforecast.view.adapter.WeatherAdapter
 import kotlinx.android.synthetic.main.fragment_weather.*
 
@@ -15,14 +15,16 @@ class WeatherFragment : Fragment() {
     private lateinit var mWeatherAdapter: WeatherAdapter
 
     companion object {
+
         fun newInstance(): WeatherFragment {
             return WeatherFragment()
         }
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mWeatherAdapter = WeatherAdapter(activity!!.applicationContext)
+        val activity = activity as WeatherActivity
+        mWeatherAdapter.setDataWeather(activity.onDataReceived().weatherData)
     }
 
     override fun onCreateView(
@@ -39,7 +41,4 @@ class WeatherFragment : Fragment() {
         weatherRecyclerView.adapter = mWeatherAdapter
     }
 
-    fun updateData(weatherData: WeatherData) {
-        mWeatherAdapter.setDataWeather(weatherData)
-    }
 }

@@ -13,14 +13,19 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               tools:context=".view.activity.MainActivity"/>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
             android:layout_marginBottom="35dp"
             android:layout_marginEnd="16dp"
             android:clickable="true"
             android:focusable="true"
-            app:fabCustomSize="56dp" />
+            app:fabSize="normal"
+            app:fab_icon="@drawable/ic_temperature"
+            app:fab_colorNormal="@color/colorPrimary"
+            app:backgroundTintMode="multiply"
+           />
 </FrameLayout>

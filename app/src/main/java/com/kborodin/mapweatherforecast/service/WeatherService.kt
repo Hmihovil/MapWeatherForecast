@@ -18,12 +18,12 @@ interface WeatherService {
         @Query("q") cityName: String, @Query("units") units: String
     ): Observable<ForecastData>
 
-    @GET(Constants.API_WEATHER + Constants.API_APP_ID)
+    @GET(Constants.API_WEATHER + Constants.API_APP_ID + Constants.LOCALE)
     fun getWeatherByLocation(
         @Query("lat") lat: String, @Query("lon") lon: String, @Query("units") units: String
     ): Observable<WeatherData>
 
-    @GET(Constants.API_FORECAST + Constants.API_APP_ID)
+    @GET(Constants.API_FORECAST + Constants.API_APP_ID + Constants.LOCALE)
     fun getForecastByLocation(
         @Query("lat") lat: String, @Query("lon") lon: String, @Query("units") units: String
     ): Observable<ForecastData>

@@ -82,6 +82,8 @@ dependencies {
     implementation "com.github.hotchemi:permissionsdispatcher:4.0.0"
     kapt "com.github.hotchemi:permissionsdispatcher-processor:4.0.0"
 
+    //Custom FAB
+    implementation 'com.getbase:floatingactionbutton:1.10.1'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'

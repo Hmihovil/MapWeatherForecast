@@ -1,8 +1,8 @@
 package com.kborodin.mapweatherforecast.view.activity
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.google.android.gms.maps.model.LatLng
 import com.kborodin.mapweatherforecast.MyApp
 import com.kborodin.mapweatherforecast.R
@@ -19,7 +19,10 @@ import kotlinx.android.synthetic.main.activity_weather.*
 import kotlinx.android.synthetic.main.progress_bar.*
 import javax.inject.Inject
 
+
+
 class WeatherActivity : AppCompatActivity(), View {
+
 
     @Inject
     lateinit var schedulerProvider: SchedulerProvider
@@ -29,16 +32,16 @@ class WeatherActivity : AppCompatActivity(), View {
     private lateinit var mainPresenter: Provider
     private lateinit var viewPagerAdapter: ViewPagerAdapter
     private var tempUnit: String = "metric"
+    private lateinit var combinedData: CombinedData
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_weather)
+        setContentView(com.kborodin.mapweatherforecast.R.layout.activity_weather)
         val myApp = application as MyApp
         myApp.getMainComponent().inject(this)
 
         tabs.setupWithViewPager(viewpager)
-        viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
-        viewpager.adapter = viewPagerAdapter
         viewpager.visibility = android.view.View.GONE
 
         initPresenter()
@@ -61,22 +64,19 @@ class WeatherActivity : AppCompatActivity(), View {
     }
 
     override fun onDataByLocationRetrieved(data: CombinedData) {
-        updateFragments(data)
-        viewpager.visibility = android.view.View.VISIBLE
+        viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
+        viewpager.adapter = viewPagerAdapter
+        combinedData = data
         hideProgressBar()
+        viewpager.visibility = android.view.View.VISIBLE
     }
 
     override fun onDataByLocationFailed() {
         hideProgressBar()
     }
 
-    private fun updateFragments(combinedData: CombinedData) {
-        (viewPagerAdapter.getRegisteredFragment(0) as WeatherFragment).updateData(
-            combinedData.weatherData
-        )
-//        (viewPagerAdapter.getRegisteredFragment(1) as ForecastFragment).updateData(
-//            combinedData.getForecastData()
-//        )
+    fun onDataReceived(): CombinedData {
+        return combinedData
     }
 
 
@@ -91,5 +91,5 @@ class WeatherActivity : AppCompatActivity(), View {
             progressBar.visibility = android.view.View.GONE
         }
     }
-
 }
+

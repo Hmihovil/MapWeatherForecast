@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.location.Location
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        fab.hide()
+        fab.visibility = View.GONE
     }
 
     @SuppressLint("MissingPermission")
@@ -52,7 +53,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
         map.setOnMapClickListener {latLng ->
             map.clear()
             map.addMarker(MarkerOptions().position(latLng))
-            fab.show()
+            fab.visibility = View.VISIBLE
 
             fab.setOnClickListener {
                 fabClick(latLng)
