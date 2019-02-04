@@ -5,4 +5,4 @@ The app allows to see the weather from Google Map marker. Used: RxJava2, Retrofi
 
 
 The example of basic functionallity:
-![gif_example_of_basic_functionallity.gif]
+![](https://github.com/KirillBorodin/MapWeatherForecast/blob/master/gif_example_of_basic_functionallity.gif)
